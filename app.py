@@ -68,6 +68,18 @@ def hello():
     return '<h1>Welcome to My Watchlist</h1> <img src="http://helloflask.com/totoro.gif">'
 
 
+@app.context_processor
+def inject_user():
+    user = User.query.first()
+    return dict(user=user)  # 等同return {'user': user}
+
+
+@app.errorhandler(404)  # 使用app.errorhandler()装饰器注册错误处理函数,错误码404
+def page_not_found(e):
+    """接收异常作为参数"""
+    return render_template('404.html'), 404  # 返回模板和状态码
+
+
 @app.route('/user/<name>')
 def user_page(name):
     return 'User: %s' % escape(name)
@@ -75,9 +87,8 @@ def user_page(name):
 
 @app.route('/')
 def index():
-    user = User.query.get(2)
-    movies = Movie.query.all() 
-    return render_template('index.html', user=user, movies=movies)
+    movies = Movie.query.all()
+    return render_template('index.html', movies=movies)
 
 
 @app.route('/test')
