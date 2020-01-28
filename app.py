@@ -176,7 +176,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/settings')
+@app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
     if request.method == 'POST':
