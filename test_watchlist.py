@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from app import app, db, User, Movie, forge, initdb
+from watchlist import app, db
+from watchlist.commands import forge, initdb
+from watchlist.models import Movie, User
 
 
 class WatchlistTestCase(unittest.TestCase):
